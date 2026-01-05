@@ -1,2 +1,0 @@
-gcc -mconsole -o minesweeper main.c minesweeper_tools.c                    
-cd "path to /minesweeper_c"; .\minesweeper.exe
