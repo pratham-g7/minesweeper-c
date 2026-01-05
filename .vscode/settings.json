@@ -1,0 +1,5 @@
+{
+    "code-runner.executorMap": {
+        "c": "gcc -mconsole -o main.exe main.c minesweeper_tools.c data_handler.c animation_handler.c && .\\main.exe"
+    }
+}
