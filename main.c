@@ -4,12 +4,10 @@
 #include "main.h"
 
 
-/* ---------- Globals ---------- */
 char *code = NULL;
 int saved = 0;
 const char *save_location = "minesweeper_saves\\minesweeper.dat";
 
-/* ---------- start() ---------- */
 GameData* start(void) {
     // start new game
     return NULL;
@@ -21,32 +19,30 @@ void start_game(void) {
     char ***ans = NULL;
     int bomb_count;
 
-    /* Start / load game */
-    GameData *loaded_data = start();  // NULL or saved game data
+
+    GameData *loaded_data = start();  
 
     if (!loaded_data) {
-        /* difficulty + board creation */
+   
         printf("Enter number of rows: ");
         scanf("%d", &dim[0]);
         printf("Enter number of columns: ");
         scanf("%d", &dim[1]);
-        int bomb_count = (dim[0] * dim[1]) / 5; // simple bomb count
+        int bomb_count = (dim[0] * dim[1]) / 5; 
         create_board(dim, NULL, 0, &board, &ans);
     } else {
-        /* Load saved game */
+ 
         board = loaded_data->board;
         ans = loaded_data->ans;
         dim[0] = loaded_data->dim[0];
         dim[1] = loaded_data->dim[1];
     }
 
-    /* Count bombs */
     bomb_count = 0;
     for (int i = 0; i < dim[0]; i++)
         for (int j = 0; j < dim[1]; j++)
             if (strcmp(ans[i][j], "X ") == 0) bomb_count++;
 
-    /* ---------- Main Game Loop ---------- */
     while (1) {
         display(board, dim);
         if (!minesweeper_loop(board, ans, dim, bomb_count)) {
@@ -57,16 +53,15 @@ void start_game(void) {
     }
 }
 
-/* ---------- minesweeper_loop() ---------- */
 int minesweeper_loop(char ***board, char ***ans, int dim[2], int bomb_count) {
     int row, col;
     printf("Enter row and column (1-based): ");
     if (scanf("%d %d", &row, &col) != 2) {
         printf("Invalid input. Please enter two numbers.\n");
-        while (getchar() != '\n'); // clear buffer
+        while (getchar() != '\n');
         return 1;
     }
-    row--; col--; // convert to 0-based
+    row--; col--;
     int index[2] = {row, col};
     if (!valid_pos(index, dim)) {
         printf("Invalid position.\n");
